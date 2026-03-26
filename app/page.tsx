@@ -50,7 +50,11 @@ export default function Home() {
         body: JSON.stringify({ title: task })
       })
 
-      if (!response.ok) throw new Error('Erro ao adicionar tarefa')
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Erro ao adicionar tarefa')
+      }
       
       setTask('')
       loadTasks() // Recarrega a lista para mostrar a nova tarefa
